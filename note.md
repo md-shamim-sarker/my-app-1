@@ -12,6 +12,7 @@ function App() {
     </div>
   );
 }
+
 export default App;
 ```
 ### Internal Styling
@@ -32,6 +33,7 @@ function App() {
     </div>
   );
 }
+
 export default App;
 ```
 ### External Styling
@@ -48,6 +50,7 @@ function App() {
     </div>
   );
 }
+
 export default App;
 ```
 #### App.css
@@ -88,6 +91,7 @@ function Person(props) {
     </div>
   );
 }
+
 export default App;
 ```
 
@@ -123,6 +127,7 @@ function Person(props) {
     </div>
   );
 }
+
 export default App;
 ```
 ## Data Send with Props Using Array of Arrays
@@ -158,6 +163,7 @@ function Person(props) {
     </div>
   );
 }
+
 export default App;
 ```
 
@@ -200,5 +206,139 @@ function Person(props) {
     </div>
   );
 }
+
+export default App;
+```
+
+## Use State in React
+```js
+import {useState} from 'react';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <Count></Count>
+    </div>
+  );
+}
+
+function Count() {
+
+  const [count, setCount] = useState(0);
+  const increaseCount = () => setCount(count + 1);
+  const decreaseCount = () => setCount(count - 1);
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={increaseCount}>Increase</button>
+      <button onClick={decreaseCount}>Decrease</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Use State in React with Conditions
+```js
+import {useState} from 'react';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <Count></Count>
+    </div>
+  );
+}
+
+function Count() {
+
+  const [count, setCount] = useState(0);
+
+  const increaseCount = () => {
+    if(count < 10) {
+      return setCount(count + 1);
+    } else {
+      return setCount(count);
+    }
+  };
+
+  const decreaseCount = () => {
+    if(count > 0) {
+      return setCount(count - 1);
+    } else {
+      return count;
+    }
+  };
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={increaseCount}>Increase</button>
+      <button onClick={decreaseCount}>Decrease</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Data Fetch and Display in React
+```js
+import {useEffect, useState} from 'react';
+import './App.css';
+
+const cardStyle = {
+  width: '25rem',
+  margin: '2rem auto',
+  border: '1px solid gray',
+  borderRadius: '10px',
+  backgroundColor: 'skyblue'
+};
+
+function App() {
+  return (
+    <div className="App">
+      <ExternalUsers></ExternalUsers>
+    </div>
+  );
+}
+
+function ExternalUsers() {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    const url = 'https://jsonplaceholder.typicode.com/users';
+    const options = {method: 'GET', headers: {Authorization: ''}};
+    return () => {
+      fetch(url, options)
+        .then(response => response.json())
+        .then(response => setUsers(response))
+        .catch(err => console.error(err));
+    };
+  }, []);
+
+  return (
+    <div>
+      <h2>External Users</h2>
+      <h3>Total Users: {users.length}</h3>
+      {
+        users.map(user => <User name={user.name} email={user.email}></User>)
+      }
+    </div>
+  );
+}
+
+function User(props) {
+  return (
+    <div style={cardStyle}>
+      <h2>Name: {props.name}</h2>
+      <h3>Email: {props.email}</h3>
+    </div>
+  );
+}
+
 export default App;
 ```

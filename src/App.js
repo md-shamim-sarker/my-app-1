@@ -1,32 +1,53 @@
+import {useEffect, useState} from 'react';
 import './App.css';
 
-const myStyle = {
-  width: '50%',
+const cardStyle = {
+  width: '25rem',
   margin: '2rem auto',
-  padding: '10px',
   border: '1px solid gray',
   borderRadius: '10px',
-  backgroundColor: '#dad2d2'
+  backgroundColor: 'skyblue'
 };
-
-const persons = [["Shamim", "Snigdha"], ["Shahin", "Beauty"]];
 
 function App() {
   return (
     <div className="App">
+      <ExternalUsers></ExternalUsers>
+    </div>
+  );
+}
+
+function ExternalUsers() {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    const url = 'https://jsonplaceholder.typicode.com/users';
+    const options = {method: 'GET', headers: {Authorization: ''}};
+    return () => {
+      fetch(url, options)
+        .then(response => response.json())
+        .then(response => setUsers(response))
+        .catch(err => console.error(err));
+    };
+  }, []);
+
+  return (
+    <div>
+      <h2>External Users</h2>
+      <h3>Total Users: {users.length}</h3>
       {
-        persons.map(person => <Person name={person[0]} partner={person[1]}></Person>)
+        users.map(user => <User name={user.name} email={user.email}></User>)
       }
     </div>
   );
 }
 
-function Person(props) {
+function User(props) {
   return (
-    <div style={myStyle}>
+    <div style={cardStyle}>
       <h2>Name: {props.name}</h2>
-      <h3>Partner: {props.partner}</h3>
+      <h3>Email: {props.email}</h3>
     </div>
   );
 }
+
 export default App;

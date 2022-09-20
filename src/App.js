@@ -9,17 +9,9 @@ const myStyle = {
   backgroundColor: '#dad2d2'
 };
 
+const persons = [["Shamim", "Snigdha"], ["Shahin", "Beauty"]];
+
 function App() {
-  const persons = [
-    [
-      "Shamim",
-      "Snigdha"
-    ],
-    [
-      "Shahin",
-      "Beauty"
-    ]
-  ];
   return (
     <div className="App">
       {
@@ -37,5 +29,4 @@ function Person(props) {
     </div>
   );
 }
-
 export default App;

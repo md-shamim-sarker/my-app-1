@@ -286,7 +286,7 @@ function Count() {
 export default App;
 ```
 
-## Data Fetch and Display in React
+## Data Fetch and Display in React Using API
 ```js
 import {useEffect, useState} from 'react';
 import './App.css';
